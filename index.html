@@ -467,7 +467,11 @@ function mediaFiles() {
 }
 
 function publicViewUrl(file) {
-  return `https://drive.google.com/uc?export=view&id=${file.id}`;
+  if (file.webContentLink) {
+    return file.webContentLink;
+  }
+
+  return `https://drive.google.com/thumbnail?id=${file.id}&sz=w2000`;
 }
 
 function publicDownloadUrl(file) {
@@ -507,7 +511,7 @@ function showViewer() {
 
   const file = files[viewerIndex];
   const type = kind(file);
-  const source = publicViewUrl(file);
+  function publicViewUrl(file) {   if (file.webContentLink) {     return file.webContentLink;   }    return `https://drive.google.com/thumbnail?id=${file.id}&sz=w2000`; }
 
   $('viewerTitle').textContent = file.name;
 
